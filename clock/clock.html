@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时钟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 0 auto;
+            height: 200px;
+            width: 200px;
+            box-sizing: content-box;
+            border: 1px solid #000;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .clock {
+            display: block;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            transform-origin: 100% 0%;
+            z-index: 1;
+        }
+
+        .h {
+            background-color: red;
+            height: 50px;
+            width: 3px;
+            z-index: 2;
+        }
+
+        .m {
+            background-color: blue;
+            height: 75px;
+            width: 2px;
+            z-index: 3;
+        }
+
+        .s {
+            background-color: #000;
+            height: 90px;
+            width: 1px;
+            z-index: 4;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <span class="h clock"></span>
+        <span class="m clock"></span>
+        <span class="s clock"></span>
+    </div>
+    <script>
+        let cs = document.getElementsByClassName('s')[0];//秒针
+        let cm = document.getElementsByClassName('m')[0];//分针
+        let ch = document.getElementsByClassName('h')[0];//时针
+        let now = new Date();
+        let sNum = now.getSeconds();
+        let mNum = now.getMinutes();
+        let hNum = now.getHours();
+
+        setInterval(() => {
+            sNum += 1;
+            if (sNum === 60) {
+                sNum = 0;
+                mNum += 1;
+                if (mNum === 60) {
+                    mNum = 0;
+                    hNum += 1;
+                }
+            }
+            // 指针的初始位置 为6点方向
+            // 加上180 为0点位置 
+            let sR = sNum * (360 / 60) + 180;
+            let mR = mNum * (360 / 60) + sNum * (360 / 60 / 60) + 180;
+            let hR = hNum * (360 / 12) + mNum * (360 / 12 / 60) +
+            sNum * (360 / 12 / 60 / 60) + 180;
+            cs.style.transform = 'rotateZ(' + sR + 'deg)';
+            cm.style.transform = 'rotateZ(' + mR + 'deg)';
+            ch.style.transform = 'rotateZ(' + hR + 'deg)';
+        }, 1000);
+    </script>
+</body>
+</html>
