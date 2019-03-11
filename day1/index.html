@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>寻找字符串中出现次数最多的字符</title>
+</head>
+<body>
+    <div class="box">
+        <p class="que">寻找字符串中出现次数最多的字符</p>
+        <input type="text" placeholder="输入字符串" id="sourceString">
+        <button id="findBtn" onclick="btnClick()">查找</button>
+        <p class="answer"></p>
+    </div>
+    <script>
+        function foundCode(str) {
+            var obj = {};
+            var taget = {
+                s: '',
+                num: 0
+            };
+            for (var i = 0; i < str.length; i++) {
+                //找到所有的字符 以及次数
+                if (obj[str[i]]) {
+                    obj[str[i]]++;
+                } else {
+                    obj[str[i]] = 1;
+                }
+            }
+            console.log(obj);
+            for (var p in obj) {
+                if (taget.num < obj[p]) {
+                    taget.s = p;
+                    taget.num = obj[p];
+                }
+            }
+            return taget;
+        }
+        function btnClick() {
+            var str = document.getElementById('sourceString').value;
+            if(str) {
+                var answer = document.getElementsByClassName('answer')[0];
+                var result;
+                result = foundCode(str);
+                console.log(result);
+                answer.innerText = `出现最多的字符是${result.s},出现了${result.num}次`
+            } else {
+                alert('请输入字符串');
+            }
+        }
+    </script>
+</body>
+</html>
