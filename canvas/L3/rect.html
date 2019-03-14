@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>画矩形</title>
+    <style>
+    #canvas {
+        border: 1px solid #ddd;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script>
+        // 插入的Dom id
+        // page宽高
+        // 矩形 宽高
+        // 线条的颜色
+        // 填充的颜色
+        hua('canvas', 0, 0, 50, 50, 5,'red', 'blue');
+        hua('canvas', 150, 0, 50, 50, 5,'red', 'blue');
+        hua('canvas', 150, 150, 50, 50, 5,'red', 'blue');
+        hua('canvas', 0, 150, 50, 50, 5,'red', 'blue');
+        function hua(id, x, y, w, h, lineWidth,lineColor, fillColor) {
+            let canvas = document.getElementById(id);
+
+            let context = canvas.getContext('2d');
+            context.beginPath();
+            context.rect(x,y,w,h);
+            context.closePath();
+            
+            context.fillStyle = fillColor;
+            context.strokeStyle = lineColor;
+            context.lineWidth = lineWidth;
+
+            context.fill();
+            context.stroke();
+        }
+    </script>
+</body>
+</html>

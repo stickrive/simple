@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>刮奖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            position: relative;
+            background: url(pic.jpeg) no-repeat;
+            background-size: 100%;
+            width: 500px;
+            height: 300px;
+        }
+        #canvas {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="canvas"></canvas>
+        <!-- <canvas id="canvas"></canvas> -->
+    </div>
+<script>
+    let flag = true;
+    let canvas = document.getElementById('canvas');
+    canvas.width = 500;
+    canvas.height = 300;
+    let context = canvas.getContext('2d');
+    // context.globalCompositeOperation = 'destination-out';
+    context.beginPath();
+    context.rect(0, 0, 500, 300);
+    context.fillStyle = '#eee';
+    context.lineWidth = 5;
+    context.strokeStyle = '#000';
+    context.fill();
+    // context.stroke();
+    context.globalCompositeOperation = 'destination-out';
+    canvas.addEventListener('touchmove', (event) => {
+        if (!flag) {
+            console.log(flag);
+            return;
+        }
+        var touch = event.touches[0];
+        context.beginPath();
+        context.arc(touch.pageX - canvas.offsetLeft, touch.pageY - canvas.offsetTop, 20, 0, Math.PI * 2);
+        context.closePath();
+        context.fillStyle = "#BDC3C7"; //随意设置一种绘制颜色
+        context.fill();
+
+        var imgData = context.getImageData(0, 0, 500, 300);
+        var data = imgData.data;
+        var length = data.length;
+        var transparent = 0;
+        for (let i = 0; i < length; i += 4) {
+            var alpha = data[i + 3];
+            // console.log(data, alpha);
+            if (alpha < 10) {
+                transparent++;
+            }
+        }
+        var percentage = transparent / (length / 4); //计算透明像素在所有像素点中所占比例
+        if (percentage > 0.1 && flag === true) {
+            flag = false;
+            context.beginPath();
+            context.rect(0, 0, 500, 300);
+            context.fillStyle = '#000';
+            context.fill();
+            setTimeout(() => {
+                alert('恭喜你获得一等奖！');
+            }, 0);
+        } //当比例大于90%时，显示刮奖结束字样
+    })
+</script>
+    <!-- <script src="app.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas</title>
+    <style>
+        #canvas {
+            border: 1px solid #efefef;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script>
+        var canvas = document.getElementById('canvas');
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext('2d');
+
+        context.beginPath();
+        context.moveTo(150,50);
+        context.lineTo(650,50);
+        context.lineTo(650,550);
+        context.lineTo(150,550);
+        // context.lineTo(150,50);     //最后一笔可以不画
+        context.closePath();        //使用closePath()闭合图形
+
+        context.fillStyle = 'yellow';
+        context.lineWidth = 5;
+        context.strokeStyle = "black";
+        context.fill();
+        context.stroke();
+    </script>
+</body>
+</html>
