@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二分法</title>
+</head>
+<body>
+    <script>
+        let testArr = [1, 5, 7, 9, 10, 30, 50, 92, 100];
+        function findIndex(arr, target, begin, end) {
+            let center = Math.floor((begin + end) / 2);
+            if(arr[center] === target) {
+                return center;
+            }
+            if(arr[center] > target) {
+                return findIndex(arr, target, begin, center)
+            }
+            return findIndex(arr, target, center, end);
+        }
+        let index = findIndex(testArr, 100, 0, testArr.length);
+        console.log(index);
+    </script>
+</body>
+</html>

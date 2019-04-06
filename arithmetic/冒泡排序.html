@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>冒泡排序</title>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        let testArr = [100, 78, 99, 5, 20, 0, 1, 49, 10]; 
+        for(let i = 0, len = testArr.length; i < len; i++) {
+            for(let j = 0, time = len - i; j < time; j++) {
+                if(testArr[j+1] < testArr[j]) {
+                    let temp = testArr[j+1];
+                    testArr[j+1] = testArr[j];
+                    testArr[j] = temp;
+                }
+            }
+        }
+        console.log(testArr);
+    </script>
+</body>
+</html>
